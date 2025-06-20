@@ -1,3 +1,57 @@
 {
-	"rundeg-output": "rundeg_featureCount"
+  "rundeg-output": "rundeg_featureCount",
+  "general": {
+    "threads": 16,
+    "samples_tsv_path": "samples.tsv",
+    "output_dir": "output"
+  },
+  "paths": {
+    "reference_genome_dir": "reference",
+    "gtf_file": "reference/TAIR10_prepared.gtf",
+    "tools_dir": "src",
+    "scripts": {
+        "fix_featCnt_header": "fix_featCnt_header.py",
+        "tpm_calculator": "tpm_raw_exp_calculator.py",
+        "run_DE_analysis": "run_DE_analysis.pl",
+        "analyze_diff_expr": "analyze_diff_expr.pl"
+    }
+  },
+  "reference_preparation": {
+    "base_dir": "reference_sources",
+    "fasta_url": "https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_chromosome_files/TAIR10_chr_all.fas",
+    "gff_url": "https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_gff3/TAIR10_GFF3_genes.gff",
+    "raw_fasta_name": "TAIR10_chr_all.fas",
+    "fixed_fasta_name": "TAIR10_chr_all.fas.fixed",
+    "raw_gff_name": "TAIR10_GFF3_genes.gff",
+    "star_genome_load": "LoadAndKeep",
+    "star_sjdb_overhang": 99,
+    "star_genome_sa_index_nbases": 10
+  },
+  "params": {
+    "fastqdump": {},
+    "trimming": {
+      "three_prime_clip_R1": 10,
+      "three_prime_clip_R2": 10,
+      "max_n": 50
+    },
+    "mapping_star": {
+      "outFilterMultimapNmax": 10,
+      "alignIntronMin": 30,
+      "alignIntronMax": 55000
+    },
+    "readscount_featureCounts": {
+      "quality_threshold": 10,
+      "strandedness": 0
+    },
+    "rundeg": {
+      "method": "DESeq2",
+      "samples_file": "samplefile",
+      "contrasts_file": "contrasts"
+    },
+    "diffexpr": {
+      "p_value_threshold": "1e-3",
+      "fold_change_threshold": 1,
+      "max_genes_clust": 40000
+    }
+  }
 }
